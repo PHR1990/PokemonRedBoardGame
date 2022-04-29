@@ -48,26 +48,24 @@ scale = Vector2( 0.147119, 0.139371 )
 texture = SubResource( 1 )
 
 [node name="heartPanel" type="HBoxContainer" parent="."]
-margin_left = 31.0
-margin_top = 29.0
-margin_right = 146.0
-margin_bottom = 50.0
+margin_left = 41.0
+margin_top = 24.0
+margin_right = 122.0
+margin_bottom = 55.0
 size_flags_horizontal = 12
+size_flags_vertical = 0
+alignment = 1
 script = SubResource( 2 )
 
 [node name="heart" type="TextureRect" parent="heartPanel"]
 visible = false
-margin_right = 10.0
+margin_left = 35.0
+margin_right = 45.0
 margin_bottom = 21.0
 rect_min_size = Vector2( 10, 15 )
 texture = ExtResource( 6 )
 expand = true
 stretch_mode = 6
-
-[node name="type" type="Sprite" parent="."]
-position = Vector2( 77, 95 )
-scale = Vector2( 0.769231, 0.769231 )
-texture = ExtResource( 3 )
 
 [node name="pokemonTexture" type="TextureRect" parent="."]
 margin_left = 54.0
@@ -75,5 +73,24 @@ margin_top = 124.0
 margin_right = 114.0
 margin_bottom = 174.0
 texture = ExtResource( 5 )
+expand = true
+stretch_mode = 5
+
+[node name="affinityPanel" type="HBoxContainer" parent="."]
+margin_left = 22.0
+margin_top = 81.0
+margin_right = 138.0
+margin_bottom = 106.0
+size_flags_horizontal = 12
+size_flags_vertical = 0
+alignment = 1
+
+[node name="textureType" type="TextureRect" parent="affinityPanel"]
+visible = false
+margin_left = 43.0
+margin_right = 73.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 30, 30 )
+texture = ExtResource( 3 )
 expand = true
 stretch_mode = 5

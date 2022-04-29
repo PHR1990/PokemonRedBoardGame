@@ -8,24 +8,48 @@ var currentAffinity : int = 3
 
 export var pokemonName = "Squirtle"
 export var type = "Water"
-var texture_heart
+onready var texture_heart = $heartPanel.get_node("heart")
+onready var texture_heart_empty = load("res://Assets/heartEmpty.png")
+onready var texture_affinity = $affinityPanel.get_node("textureType")
 
 func _ready():
-	texture_heart = $heartPanel.get_node("heart")
 	currentHp = hp
 	currentAffinity = affinity
 	$pokemonTexture.texture = load("res://Assets/Pokemon/" + pokemonName + ".png")
-	$type.texture = load("res://Assets/Types/" + type + ".png")
+	#$type.texture = 
 
-	createHearts()
+	create_hearts()
+	create_affinity()
 
-func createHearts():
+func create_affinity():
+	var typeTexture = load("res://Assets/Types/" + type + ".png")
+	for x in affinity:
+		var instance = texture_affinity.duplicate()
+		var name = "affinity" + str(x)
+		instance.set_name(name)
+		instance.texture = typeTexture
+		instance.visible = true
+		instance.rect_min_size = Vector2(25 ,25 )
+		$affinityPanel.add_child(instance)
+		
+
+func create_hearts():
+	# 10 x 21
+	var pixelMult = 0
+	if hp >= 8:
+		pixelMult = 0.75
+	elif hp >= 4:
+		pixelMult = 1.25
+	else:
+		pixelMult = 1.5
+	
 	for x in hp:
 		var instance = texture_heart.duplicate()
 		var name = "heart" + str(x)
 		instance.set_name(name)
 		instance.visible = true
 		$heartPanel.add_child(instance)
+		instance.rect_min_size = Vector2(10 * pixelMult,21 * pixelMult)
 
 func damage(amount):
 	if amount > 0:
@@ -34,6 +58,8 @@ func damage(amount):
 
 func refresh_health():
 	var name = "heart" + str(currentHp-1)
-	$heartPanel.get_node(name).visible = false
+	#$heartPanel.get_node(name).visible = false
+	$heartPanel.get_node(name).texture = texture_heart_empty
+	
 	
 
