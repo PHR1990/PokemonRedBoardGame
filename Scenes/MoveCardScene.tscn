@@ -6,6 +6,7 @@
 [ext_resource path="res://Scripts/MoveCardScene.gd" type="Script" id=4]
 [ext_resource path="res://Assets/Fonts/fffForwardFont-pixelArt.tres" type="DynamicFont" id=6]
 
+
 [node name="MoveCardScene" type="Node2D"]
 script = ExtResource( 4 )
 

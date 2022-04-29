@@ -4,27 +4,38 @@ var ownPokemon
 var enemyPokemon
 var label
 
+onready var currentSize = get_viewport().size
+
+onready var enemyPokemonCardPosition = Vector2(currentSize.x / 2 - 160, 25)
+onready var ownPokemonCardPosition = Vector2(currentSize.x / 2 -160, 275 )
+
+onready var moveCardScene = load("res://Scenes/MoveCardScene.tscn")
+onready var pokemonCardScene = load("res://Scenes/PokemonCardScene.tscn")
+
+onready var moveCardAtPositionOne = Vector2(80, 330)
+onready var moveCardAtPositionTwo = Vector2(220 , 330)
+onready var moveCardAtPositionThree = Vector2(80  , 470)
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	label = $Label
 	label.text = ""
-	create_pokemons()
-	create_move_cards()
+	display_enemy_card("Charmander")
+	display_own_pokemon_card("Squirtle")
 	
-func card_was_used():
-	writeInLabel("card used")
+	display_move_card(1, "Tackle")
+	display_move_card(2, "Growl")
+	display_move_card(3, "Bubble")
 
-func create_pokemons():
-	var currentSize = get_viewport().size
-	
-	var pokemon_card_scene = load("res://Scenes/PokemonCardScene.tscn")
-	
-	ownPokemon = create_pokemon_card(pokemon_card_scene, Vector2(currentSize.x / 2 -160, 275 ), "Squirtle")
-	enemyPokemon = create_pokemon_card(pokemon_card_scene, Vector2(currentSize.x / 2 - 160, 25), "Charmander")
+func display_own_pokemon_card(pokemonName):
+	ownPokemon = create_pokemon_card(pokemonCardScene, ownPokemonCardPosition , pokemonName)
 
-func create_pokemon_card(pokemon_card_scene, position, pokemonName):
+func display_enemy_card(pokemonName):
+	enemyPokemon = create_pokemon_card(pokemonCardScene, enemyPokemonCardPosition, pokemonName)
 	
-	var pokemonInstance = pokemon_card_scene.instance()
+func create_pokemon_card(pokemonCardScene, position, pokemonName):
+	
+	var pokemonInstance = pokemonCardScene.instance()
 	
 	pokemonInstance.hp = pokemon.get(pokemonName).HP
 	pokemonInstance.pokemonName = pokemonName
@@ -34,19 +45,17 @@ func create_pokemon_card(pokemon_card_scene, position, pokemonName):
 	add_child(pokemonInstance)
 	return pokemonInstance
 
-func create_move_cards():
-	
-	var move_card_scene = load("res://Scenes/MoveCardScene.tscn")
-	
-	var currentSize = get_viewport().size
-	
-	create_move_card(move_card_scene,"Tackle", moves.get("Tackle"), Vector2(80, 330))
-	create_move_card(move_card_scene,"Growl", moves.get("Growl"), Vector2(220 , 330))
-	create_move_card(move_card_scene,"Bubble", moves.get("Bubble"), Vector2(80  , 470))
-	
-	
-func create_move_card(move_card_scene,moveName, move, position):
-	var move_instance = move_card_scene.instance()
+func display_move_card(position, moveName):
+	match position:
+		1: 
+			create_move_card(moveCardScene, moveName, moves.get(moveName), moveCardAtPositionOne)
+		2:
+			create_move_card(moveCardScene,moveName, moves.get(moveName), moveCardAtPositionTwo)
+		3:
+			create_move_card(moveCardScene,moveName, moves.get(moveName), moveCardAtPositionThree)
+
+func create_move_card(moveCardScene,moveName, move, position):
+	var move_instance = moveCardScene.instance()
 	
 	move_instance.moveName = moveName
 	move_instance.affinityCostAmount = move.cost
@@ -58,39 +67,38 @@ func create_move_card(move_card_scene,moveName, move, position):
 	move_instance.connect("card_used", self, "_on_MoveCardScene_card_used")
 	add_child(move_instance)
 	
-	
 func _on_MoveCardScene_card_used(moveName):
-	processAttack(moveName)
+	process_attack(moveName)
 
-func processAttack(moveName):
+func process_attack(moveName):
 	label.text = ""
 	var ownMove = moves.get(moveName)
 	var enemyMove = moves.get(random_move())
 	
 	var result = rock_paper_scissor_result(ownMove.badge, enemyMove.badge)
 	
-	writeInLabel("You choose: " + ownMove.badge)
-	writeInLabel("Enemy chose: " + enemyMove.badge)
+	display_text("You choose: " + ownMove.badge)
+	display_text("Enemy chose: " + enemyMove.badge)
 	
 	if (result == "Win"):
-		writeInLabel("You go first!");
+		display_text("You go first!");
 		enemyPokemon.damage(ownMove.damage)
-		writeInLabel("Enemy " + str(ownMove.damage) + " damage");
+		display_text("Enemy " + str(ownMove.damage) + " damage");
 		yield(get_tree().create_timer(2.0), "timeout")
-		writeInLabel("You took " + str(enemyMove.damage) + " damage");
+		display_text("You took " + str(enemyMove.damage) + " damage");
 		ownPokemon.damage(enemyMove.damage)
 	elif (result == "Lost"):
-		writeInLabel("Enemy goes first!");
-		writeInLabel("You took " + str(enemyMove.damage) + " damage");
+		display_text("Enemy goes first!");
+		display_text("You took " + str(enemyMove.damage) + " damage");
 		ownPokemon.damage(enemyMove.damage)
 		yield(get_tree().create_timer(2.0), "timeout")
-		writeInLabel("Enemy " +  str(ownMove.damage) + " damage");
+		display_text("Enemy " +  str(ownMove.damage) + " damage");
 		enemyPokemon.damage(ownMove.damage)
 	else:
-		writeInLabel("It was a tie!");
-		writeInLabel("No damage is dealt!");
+		display_text("It was a tie!");
+		display_text("No damage is dealt!");
 
-func writeInLabel(text):
+func display_text(text):
 	
 	label.text = label.text + text + "\n"
 

@@ -14,8 +14,9 @@ func _ready():
 	texture_heart = $heartPanel.get_node("heart")
 	currentHp = hp
 	currentAffinity = affinity
-	$pokemonSprite.texture = load("res://Assets/Pokemon/" + pokemonName + ".png")
+	$pokemonTexture.texture = load("res://Assets/Pokemon/" + pokemonName + ".png")
 	$type.texture = load("res://Assets/Types/" + type + ".png")
+
 	createHearts()
 
 func createHearts():
