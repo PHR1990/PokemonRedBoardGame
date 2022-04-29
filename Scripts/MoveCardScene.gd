@@ -1,6 +1,6 @@
 extends Node2D
 
-signal card_used(asd)
+signal card_used(moveName)
 
 export var moveName = ""
 export var damageAmount = 0

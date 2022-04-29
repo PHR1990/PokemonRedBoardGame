@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Pokemon carta base.png" type="Texture" id=2]
 [ext_resource path="res://Assets/Types/Fire.png" type="Texture" id=3]
-[ext_resource path="res://PokemonCardScene.gd" type="Script" id=4]
+[ext_resource path="res://Scripts/PokemonCardScene.gd" type="Script" id=4]
 [ext_resource path="res://Assets/Pokemon/charmander.png" type="Texture" id=5]
 [ext_resource path="res://Assets/heartFilled.png" type="Texture" id=6]
 
@@ -32,6 +32,7 @@ func _on_mouse_exited():
 "
 
 [node name="PokemonCardScene" type="Node2D"]
+position = Vector2( 1, 0 )
 script = ExtResource( 4 )
 
 [node name="background" type="NinePatchRect" parent="."]
@@ -69,10 +70,10 @@ scale = Vector2( 0.769231, 0.769231 )
 texture = ExtResource( 3 )
 
 [node name="pokemonTexture" type="TextureRect" parent="."]
-margin_left = 46.0
-margin_top = 113.0
-margin_right = 126.0
-margin_bottom = 193.0
+margin_left = 54.0
+margin_top = 124.0
+margin_right = 114.0
+margin_bottom = 174.0
 texture = ExtResource( 5 )
 expand = true
 stretch_mode = 5
