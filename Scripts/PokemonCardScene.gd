@@ -9,6 +9,7 @@ var currentAffinity : int = 3
 export var pokemonName = "Squirtle"
 export var type = "Water"
 onready var texture_heart = $heartPanel.get_node("heart")
+onready var texture_heart_filled = load("res://Assets/heartFilled.png")
 onready var texture_heart_empty = load("res://Assets/heartEmpty.png")
 onready var texture_affinity = $affinityPanel.get_node("textureType")
 
@@ -58,8 +59,15 @@ func damage(amount):
 
 func refresh_health():
 	var name = "heart" + str(currentHp-1)
-	#$heartPanel.get_node(name).visible = false
+	#texture_heart_filled
 	$heartPanel.get_node(name).texture = texture_heart_empty
-	
-	
+	yield(get_tree().create_timer(0.25), "timeout")
+	$heartPanel.get_node(name).texture = texture_heart_filled
+	yield(get_tree().create_timer(0.25), "timeout")
+	$heartPanel.get_node(name).texture = texture_heart_empty
+	yield(get_tree().create_timer(0.25), "timeout")
+	$heartPanel.get_node(name).texture = texture_heart_filled
+	yield(get_tree().create_timer(0.25), "timeout")
+	$heartPanel.get_node(name).texture = texture_heart_empty
+	yield(get_tree().create_timer(0.25), "timeout")
 
