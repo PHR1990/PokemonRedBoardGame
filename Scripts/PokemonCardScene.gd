@@ -60,13 +60,17 @@ func damage(amount):
 func refresh_health():
 	var name = "heart" + str(currentHp-1)
 	#texture_heart_filled
-	$heartPanel.get_node(name).texture = texture_heart_empty
+	#$heartPanel.get_node(name).texture = texture_heart_empty
+	$pokemonTexture.visible = false
 	yield(get_tree().create_timer(0.25), "timeout")
-	$heartPanel.get_node(name).texture = texture_heart_filled
+	#$heartPanel.get_node(name).texture = texture_heart_filled
+	$pokemonTexture.visible = true
 	yield(get_tree().create_timer(0.25), "timeout")
-	$heartPanel.get_node(name).texture = texture_heart_empty
+	#$heartPanel.get_node(name).texture = texture_heart_empty
+	$pokemonTexture.visible = false
 	yield(get_tree().create_timer(0.25), "timeout")
-	$heartPanel.get_node(name).texture = texture_heart_filled
+	#$heartPanel.get_node(name).texture = texture_heart_filled
+	$pokemonTexture.visible = true
 	yield(get_tree().create_timer(0.25), "timeout")
 	$heartPanel.get_node(name).texture = texture_heart_empty
 	yield(get_tree().create_timer(0.25), "timeout")
