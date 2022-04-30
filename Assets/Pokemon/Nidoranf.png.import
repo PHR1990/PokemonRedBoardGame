@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Squirtle.png-91521b25ec20c1d2006285326839be6a.stex"
+path="res://.import/Nidoranf.png-729dec5f78696cb8970f6c26cd6a5dea.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Pokemon/Squirtle.png"
-dest_files=[ "res://.import/Squirtle.png-91521b25ec20c1d2006285326839be6a.stex" ]
+source_file="res://Assets/Pokemon/Nidoranf.png"
+dest_files=[ "res://.import/Nidoranf.png-729dec5f78696cb8970f6c26cd6a5dea.stex" ]
 
 [params]
 

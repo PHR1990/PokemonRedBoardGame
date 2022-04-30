@@ -18,8 +18,9 @@ onready var pokemonCardScene = load("res://Scenes/PokemonCardScene.tscn")
 onready var moveCardAtPositionOne = Vector2(80, 330)
 onready var moveCardAtPositionTwo = Vector2(220, 330)
 onready var moveCardAtPositionThree = Vector2(80, 470)
+onready var moveCardAtPositionFour = Vector2(220, 470)
 
-onready var dictionary = load("res://Scripts/Repository.gd").new()
+onready var dictionary = load("res://Scripts/DataDictionary.gd").new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -46,7 +47,15 @@ func display_own_pokemon_card(pokemonName):
 
 func display_enemy_card(pokemonName):
 	enemyPokemon = create_pokemon_card(pokemonCardScene, enemyPokemonCardPosition, pokemonName)
+
+func switch_own_pokemon(pokemonName): 
+	display_own_pokemon_card(pokemonName)
+	var moves = dictionary.pokemon.get(pokemonName).Moves
 	
+	for x in range(0, len(moves)):
+		display_move_card(x, moves[x])
+	
+
 func create_pokemon_card(pokemonCardScene, position, pokemonName):
 	
 	var pokemonInstance = pokemonCardScene.instance()
@@ -61,17 +70,20 @@ func create_pokemon_card(pokemonCardScene, position, pokemonName):
 
 func display_move_card(position, moveName):
 	match position:
-		1: 
+		0: 
 			create_move_card(moveCardScene, moveName, dictionary.moves.get(moveName), moveCardAtPositionOne)
-		2:
+		1:
 			create_move_card(moveCardScene,moveName, dictionary.moves.get(moveName), moveCardAtPositionTwo)
-		3:
+		2:
 			create_move_card(moveCardScene,moveName, dictionary.moves.get(moveName), moveCardAtPositionThree)
+		3:
+			create_move_card(moveCardScene,moveName, dictionary.moves.get(moveName), moveCardAtPositionFour)
 
 func create_move_card(moveCardScene,moveName, move, position):
 	var move_instance = moveCardScene.instance()
 	
 	move_instance.moveName = moveName
+	
 	move_instance.affinityCostAmount = move.cost
 	move_instance.damageAmount = move.damage
 	move_instance.type = move.type

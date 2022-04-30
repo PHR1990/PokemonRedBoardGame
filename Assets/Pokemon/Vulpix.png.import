@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Squirtle.png-91521b25ec20c1d2006285326839be6a.stex"
+path="res://.import/Vulpix.png-50e0f1ed28a73f710fb0236d2ac528eb.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Pokemon/Squirtle.png"
-dest_files=[ "res://.import/Squirtle.png-91521b25ec20c1d2006285326839be6a.stex" ]
+source_file="res://Assets/Pokemon/Vulpix.png"
+dest_files=[ "res://.import/Vulpix.png-50e0f1ed28a73f710fb0236d2ac528eb.stex" ]
 
 [params]
 

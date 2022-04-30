@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Squirtle.png-91521b25ec20c1d2006285326839be6a.stex"
+path="res://.import/Gengar.png-1c088ce8e1070a1d7fa0676023638316.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Pokemon/Squirtle.png"
-dest_files=[ "res://.import/Squirtle.png-91521b25ec20c1d2006285326839be6a.stex" ]
+source_file="res://Assets/Pokemon/Gengar.png"
+dest_files=[ "res://.import/Gengar.png-1c088ce8e1070a1d7fa0676023638316.stex" ]
 
 [params]
 

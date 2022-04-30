@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Squirtle.png-91521b25ec20c1d2006285326839be6a.stex"
+path="res://.import/Bellsprout.png-be2a10af1bd9f7bcbc0f2d47979c127f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Pokemon/Squirtle.png"
-dest_files=[ "res://.import/Squirtle.png-91521b25ec20c1d2006285326839be6a.stex" ]
+source_file="res://Assets/Pokemon/Bellsprout.png"
+dest_files=[ "res://.import/Bellsprout.png-be2a10af1bd9f7bcbc0f2d47979c127f.stex" ]
 
 [params]
 

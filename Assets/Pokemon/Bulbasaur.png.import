@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Squirtle.png-91521b25ec20c1d2006285326839be6a.stex"
+path="res://.import/Bulbasaur.png-61fed0c6140f68d1ff6897f27ec62933.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Pokemon/Squirtle.png"
-dest_files=[ "res://.import/Squirtle.png-91521b25ec20c1d2006285326839be6a.stex" ]
+source_file="res://Assets/Pokemon/Bulbasaur.png"
+dest_files=[ "res://.import/Bulbasaur.png-61fed0c6140f68d1ff6897f27ec62933.stex" ]
 
 [params]
 

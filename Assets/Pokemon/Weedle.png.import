@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Squirtle.png-91521b25ec20c1d2006285326839be6a.stex"
+path="res://.import/Weedle.png-e03ec5b3aa7dcafec30d108f36eca07d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Pokemon/Squirtle.png"
-dest_files=[ "res://.import/Squirtle.png-91521b25ec20c1d2006285326839be6a.stex" ]
+source_file="res://Assets/Pokemon/Weedle.png"
+dest_files=[ "res://.import/Weedle.png-e03ec5b3aa7dcafec30d108f36eca07d.stex" ]
 
 [params]
 

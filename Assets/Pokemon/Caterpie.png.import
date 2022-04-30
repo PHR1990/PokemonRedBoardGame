@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Squirtle.png-91521b25ec20c1d2006285326839be6a.stex"
+path="res://.import/Caterpie.png-bb8e0811d68116141084786b5a9a5462.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Pokemon/Squirtle.png"
-dest_files=[ "res://.import/Squirtle.png-91521b25ec20c1d2006285326839be6a.stex" ]
+source_file="res://Assets/Pokemon/Caterpie.png"
+dest_files=[ "res://.import/Caterpie.png-bb8e0811d68116141084786b5a9a5462.stex" ]
 
 [params]
 

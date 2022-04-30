@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/charmander.png-b2276c45a1ccc976049e8d2722ff8157.stex"
+path="res://.import/Charmander.png-16d6939cdc240726d5aac81c615caeac.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Pokemon/charmander.png"
-dest_files=[ "res://.import/charmander.png-b2276c45a1ccc976049e8d2722ff8157.stex" ]
+source_file="res://Assets/Pokemon/Charmander.png"
+dest_files=[ "res://.import/Charmander.png-16d6939cdc240726d5aac81c615caeac.stex" ]
 
 [params]
 

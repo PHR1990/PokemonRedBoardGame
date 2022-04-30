@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Squirtle.png-91521b25ec20c1d2006285326839be6a.stex"
+path="res://.import/Arcanine.png-637efa6c06a8e92e29373aab70a6ed97.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Pokemon/Squirtle.png"
-dest_files=[ "res://.import/Squirtle.png-91521b25ec20c1d2006285326839be6a.stex" ]
+source_file="res://Assets/Pokemon/Arcanine.png"
+dest_files=[ "res://.import/Arcanine.png-637efa6c06a8e92e29373aab70a6ed97.stex" ]
 
 [params]
 

@@ -1,15 +1,13 @@
 extends Node
 
-onready var dictionary = load("res://Scripts/Repository.gd").new()
+onready var dictionary = load("res://Scripts/DataDictionary.gd").new()
+
+var enemyPokemonName = "Arcanine"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$HUD.display_enemy_card("Squirtle")
-	
-	$HUD.display_own_pokemon_card("Charmander")
-	
-	$HUD.display_move_card(1, "Scratch")
-	$HUD.display_move_card(2, "Ember")
+	$HUD.display_enemy_card(enemyPokemonName)
+	$HUD.switch_own_pokemon("Charmander")
 	
 	$HUD.connect("change_pokemon_card_pressed", self, "_change_card")
 	$HUD.connect("move_card_was_pressed", self, "_move_card_pressed")
@@ -17,17 +15,11 @@ func _ready():
 
 func _change_card(position):
 	if position == 1:
-		$HUD.display_own_pokemon_card("Squirtle")
-		$HUD.display_move_card(1, "Tackle")
-		$HUD.display_move_card(2, "Bubble")
+		$HUD.switch_own_pokemon("Poliwag")
 	elif position == 2:
-		$HUD.display_own_pokemon_card("Pikachu")
-		$HUD.display_move_card(1, "Nuzzle")
-		$HUD.display_move_card(2, "Growl")
+		$HUD.switch_own_pokemon("Vulpix")
 	else:
-		$HUD.display_own_pokemon_card("Charmander")
-		$HUD.display_move_card(1, "Scratch")
-		$HUD.display_move_card(2, "Ember")
+		$HUD.switch_own_pokemon("Jigglypuff")
 		
 func _move_card_pressed(moveName):
 	$HUD.reset_label()
@@ -39,8 +31,20 @@ func _move_card_pressed(moveName):
 	$HUD.display_text("You choose: " + ownMove.badge)
 	$HUD.display_text("Enemy chose: " + enemyMove.badge)
 	
+	$HUD.enemyPokemon.consume_affinity(enemyMove.cost)
+	
+	if "recover" in enemyMove:
+		$HUD.enemyPokemon.recover_affinity(enemyMove.recover)
+	print(ownMove)
+	if "recover" in ownMove:
+		print("recovering")
+		$HUD.ownPokemon.recover_affinity(ownMove.recover)
+	
+	$HUD.ownPokemon.consume_affinity(ownMove.cost)
+	
 	if (result == "Win"):
 		$HUD.display_text("You go first!");
+		
 		$HUD.enemyPokemon.damage(ownMove.damage)
 		$HUD.display_text("Enemy " + str(ownMove.damage) + " damage");
 		yield(get_tree().create_timer(2.0), "timeout")
@@ -60,13 +64,13 @@ func _move_card_pressed(moveName):
 func random_move():
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
-	var randomNumber = rng.randi_range(0, 2)
-	if (randomNumber == 0):
-		return "Nuzzle"
-	elif (randomNumber == 1):
-		return "Tackle"
-	elif (randomNumber == 2):
-		return "Scratch"
+	
+	var movesList = dictionary.pokemon.get(enemyPokemonName).Moves
+	var randomNumber = rng.randi_range(0, len(movesList)-1)
+	
+	print(movesList[randomNumber])
+	return movesList[randomNumber]
+	
 
 func rock_paper_scissor_result(ownBadge, enemyBadge):
 	if (ownBadge == enemyBadge):

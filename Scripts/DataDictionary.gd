@@ -1,64 +1,110 @@
 extends Node
 
-export var pokemon : Dictionary = {
+export(Dictionary) var pokemon = {
 	Charmander = {
 		HP = 4,
 		Affinity = 3,
-		Type = "Fire"
+		Type = "Fire",
+		Moves = ["Scratch", "Growl", "Ember"]
 	}, Squirtle = {
 		HP = 4,
 		Affinity = 3,
-		Type = "Water"
+		Type = "Water",
+		Moves = ["Tackle", "Growl", "Bubble"]
 	}, Pikachu = {
 		HP = 3,
 		Affinity = 4,
-		Type = "Electric"
-	}
+		Type = "Electric",
+		Moves = ["Nuzzle", "Growl"]
+	}, Poliwag = {
+		HP = 3,
+		Affinity = 2,
+		Type = "Water",
+		Moves = ["Tackle", "Growl", "Bubble"]
+	}, Vulpix = {
+		HP = 3,
+		Affinity = 4,
+		Type = "Fire",
+		Moves = ["Scratch", "Growl", "Ember"]
+	}, Jigglypuff = {
+		HP = 4,
+		Affinity = 2,
+		Type = "Normal",
+		Moves = ["Nuzzle", "Ember", "Bubble", "Tackle"]
+	}, Arcanine = {
+		HP = 8,
+		Affinity = 6,
+		Type = "Fire",
+		Moves = ["FlameWheel", "Ember", "Tackle"]
+	}, Charizard = {
+		HP = 7,
+		Affinity = 7,
+		Type = "Fire",
+		Moves = ["FlameWheel", "Ember", "Slash"]
+	},
 }
 
-export var moves : Dictionary = {
+export(Dictionary) var moves = {
 	# Normal
 	Tackle = {
 		cost = 0,
 		damage = 1,
-		badge = "Paper"
+		badge = "Paper",
+		type = "Normal"
 	}, Scratch = {
 		cost = 0,
 		damage = 1,
-		badge = "Scissor"
+		badge = "Scissor",
+		type = "Normal"
+	}, Slash = {
+		cost = 2,
+		damage = 2,
+		badge = "Scissor",
+		type = "Normal"
 	# Electric
 	}, Nuzzle = {
 		cost = 0,
 		damage = 1,
-		badge = "Rock"
+		badge = "Rock",
+		type = "Electric"
+	}, Bolt = {
+		cost = 1,
+		damage = 2,
+		badge = "Rock",
+		type = "Electric"
 	# Water
 	}, Bubble = {
 		cost = 0,
 		damage = 1,
-		badge = "Rock"
+		badge = "Rock",
+		type = "Water"
+	}, WaterGun = {
+		cost = 1,
+		damage = 2,
+		badge = "Rock",
+		type = "Water"
+	}, Surf = {
+		cost = 4,
+		damage = 4,
+		badge = "Rock",
+		type = "Water"
 	# Fire
 	}, Ember = {
-		cost = 0,
+		cost = 1,
 		damage = 1,
-		badge = "Rock"
+		badge = "Rock",
+		type = "Fire"
+	}, FlameWheel = {
+		cost = 1,
+		damage = 2,
+		badge = "Rock",
+		type = "Fire"
 	# Recover
 	}, Growl = {
 		recover = 2,
 		cost = 0,
+		badge = "None",
 		damage = 0,
+		type = "Normal"
 	}
 }
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
