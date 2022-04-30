@@ -22,6 +22,11 @@ onready var moveCardAtPositionFour = Vector2(220, 470)
 
 onready var dictionary = load("res://Scripts/DataDictionary.gd").new()
 
+var firstMoveElementRef
+var secondMoveElementRef
+var thirdMoveElementRef
+var fourthMoveElementRef
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	label = $Label
@@ -32,15 +37,7 @@ func _ready():
 	$canvasLayer.get_node("buttonTwo").set_tooltip("Pikachu")
 	$canvasLayer.get_node("buttonThree").connect("pressed", self, "_button_three_pressed")
 	$canvasLayer.get_node("buttonThree").set_tooltip("Charmander")
-		
-func _button_one_pressed():
-	emit_signal("change_pokemon_card_pressed", 1)
-	
-func _button_two_pressed():
-	emit_signal("change_pokemon_card_pressed", 2)
-	
-func _button_three_pressed():
-	emit_signal("change_pokemon_card_pressed", 3)
+
 	
 func display_own_pokemon_card(pokemonName):
 	ownPokemon = create_pokemon_card(pokemonCardScene, ownPokemonCardPosition , pokemonName)
@@ -48,13 +45,26 @@ func display_own_pokemon_card(pokemonName):
 func display_enemy_card(pokemonName):
 	enemyPokemon = create_pokemon_card(pokemonCardScene, enemyPokemonCardPosition, pokemonName)
 
+func clean_up_own_pokemon_data():
+	if is_instance_valid(ownPokemon):
+		ownPokemon.queue_free()
+	
+	if is_instance_valid(firstMoveElementRef):
+		firstMoveElementRef.queue_free()
+	if is_instance_valid(secondMoveElementRef):
+		secondMoveElementRef.queue_free()
+	if is_instance_valid(thirdMoveElementRef):
+		thirdMoveElementRef.queue_free()
+	if is_instance_valid(fourthMoveElementRef):
+		fourthMoveElementRef.queue_free()
+	
 func switch_own_pokemon(pokemonName): 
+	clean_up_own_pokemon_data()
 	display_own_pokemon_card(pokemonName)
 	var moves = dictionary.pokemon.get(pokemonName).Moves
 	
 	for x in range(0, len(moves)):
 		display_move_card(x, moves[x])
-	
 
 func create_pokemon_card(pokemonCardScene, position, pokemonName):
 	
@@ -71,17 +81,19 @@ func create_pokemon_card(pokemonCardScene, position, pokemonName):
 func display_move_card(position, moveName):
 	match position:
 		0: 
-			create_move_card(moveCardScene, moveName, dictionary.moves.get(moveName), moveCardAtPositionOne)
+			firstMoveElementRef = create_move_card(moveCardScene, moveName, dictionary.moves.get(moveName), moveCardAtPositionOne)
 		1:
-			create_move_card(moveCardScene,moveName, dictionary.moves.get(moveName), moveCardAtPositionTwo)
+			secondMoveElementRef = create_move_card(moveCardScene,moveName, dictionary.moves.get(moveName), moveCardAtPositionTwo)
 		2:
-			create_move_card(moveCardScene,moveName, dictionary.moves.get(moveName), moveCardAtPositionThree)
+			thirdMoveElementRef = create_move_card(moveCardScene,moveName, dictionary.moves.get(moveName), moveCardAtPositionThree)
 		3:
-			create_move_card(moveCardScene,moveName, dictionary.moves.get(moveName), moveCardAtPositionFour)
+			fourthMoveElementRef = create_move_card(moveCardScene,moveName, dictionary.moves.get(moveName), moveCardAtPositionFour)
 
-func create_move_card(moveCardScene,moveName, move, position):
-	var move_instance = moveCardScene.instance()
+func create_move_card(moveCardScene, moveName, move, position):
+	var instanceName = "Move"
 	
+	var move_instance = moveCardScene.instance()
+	move_instance.name = instanceName
 	move_instance.moveName = moveName
 	
 	move_instance.affinityCostAmount = move.cost
@@ -92,9 +104,19 @@ func create_move_card(moveCardScene,moveName, move, position):
 	move_instance.set_position(position)
 	move_instance.connect("card_used", self, "_on_MoveCardScene_card_used")
 	add_child(move_instance)
+	return move_instance
 	
 func _on_MoveCardScene_card_used(moveName):
 	emit_signal("move_card_was_pressed", moveName)
+	
+func _button_one_pressed():
+	emit_signal("change_pokemon_card_pressed", 1)
+	
+func _button_two_pressed():
+	emit_signal("change_pokemon_card_pressed", 2)
+	
+func _button_three_pressed():
+	emit_signal("change_pokemon_card_pressed", 3)
 
 func reset_label():
 	label.text = ""

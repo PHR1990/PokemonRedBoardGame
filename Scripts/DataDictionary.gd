@@ -1,16 +1,21 @@
 extends Node
 
 export(Dictionary) var pokemon = {
-	Charmander = {
+	Bulbasaur = {
+		HP = 4,
+		Affinity = 3,
+		Type = "Grass",
+		Moves = ["Tackle", "Growl", "RazorLeaf"]
+	}, Charmander = {
 		HP = 4,
 		Affinity = 3,
 		Type = "Fire",
-		Moves = ["Scratch", "Growl", "Ember"]
+		Moves = ["Scratch", "Growl", "Ember", "FlameWheel"]
 	}, Squirtle = {
 		HP = 4,
 		Affinity = 3,
 		Type = "Water",
-		Moves = ["Tackle", "Growl", "Bubble"]
+		Moves = ["Tackle", "Growl", "Bubble", "WaterGun"]
 	}, Pikachu = {
 		HP = 3,
 		Affinity = 4,
@@ -41,6 +46,11 @@ export(Dictionary) var pokemon = {
 		Affinity = 7,
 		Type = "Fire",
 		Moves = ["FlameWheel", "Ember", "Slash"]
+	}, Fearow = {
+		HP = 6,
+		Affinity = 5,
+		Type = "Normal",
+		Moves = ["Slash", "Growl", "Scratch"]
 	},
 }
 
@@ -99,6 +109,12 @@ export(Dictionary) var moves = {
 		damage = 2,
 		badge = "Rock",
 		type = "Fire"
+	# Grass
+	}, RazorLeaf = {
+		cost = 1,
+		damage = 2,
+		badge = "Rock",
+		type = "Grass"
 	# Recover
 	}, Growl = {
 		recover = 2,

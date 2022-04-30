@@ -20,27 +20,46 @@ func _ready():
 
 	create_hearts()
 	create_affinity()
+	$Timer.start()
 
+func _on_Timer_timeout():
+	animate()
+	$Timer.start()
+	
+func animate():
+	$pokemonSprite.set_frame(1)
+	yield(get_tree().create_timer(.5), "timeout")
+	$pokemonSprite.set_frame(0)
+	
 func create_affinity():
 	var typeTexture = load("res://Assets/Types/" + type + ".png")
+	var pixelMult = 0
+	if affinity >= 6:
+		pixelMult = 0.5
+	elif affinity >= 5:
+		pixelMult = 0.75
+	elif affinity >= 4:
+		pixelMult = 1
+	else:
+		pixelMult = 1.5
+		
 	for x in affinity:
 		var instance = texture_affinity.duplicate()
 		var name = "affinity" + str(x)
 		instance.set_name(name)
 		instance.texture = typeTexture
 		instance.visible = true
-		instance.rect_min_size = Vector2(25 ,25 )
+		instance.rect_min_size = Vector2(25.0 * pixelMult,25.0 * pixelMult)
 		$affinityPanel.add_child(instance)
 
 func recover_affinity(amount):
 	while amount > 0 && currentAffinity < affinity:
-		var name = "affinity" + str(currentAffinity-1)
+		var name = "affinity" + str(currentAffinity)
 		$affinityPanel.get_node(name).visible = true
 		currentAffinity+=1
 		amount-=1
 	
 func consume_affinity(amount):
-	
 	while amount > 0:
 		var name = "affinity" + str(currentAffinity-1)
 		$affinityPanel.get_node(name).visible = false
@@ -49,12 +68,12 @@ func consume_affinity(amount):
 
 func create_hearts():
 	var pixelMult = 0
-	if hp >= 8:
-		pixelMult = 0.75
+	if hp >= 6:
+		pixelMult = 0.50
 	elif hp >= 4:
-		pixelMult = 1.25
+		pixelMult = 0.75
 	else:
-		pixelMult = 1.5
+		pixelMult = 1
 	
 	for x in hp:
 		var instance = texture_heart.duplicate()
@@ -62,12 +81,11 @@ func create_hearts():
 		instance.set_name(name)
 		instance.visible = true
 		$heartPanel.add_child(instance)
-		instance.rect_min_size = Vector2(10 * pixelMult,21 * pixelMult)
+		instance.rect_min_size = Vector2(25.0 * pixelMult,10.0 * pixelMult)
 
 func damage(amount):
 	if amount > 0:
 		decrement_health(amount)
-		
 
 func decrement_health(amount):
 	
@@ -75,6 +93,7 @@ func decrement_health(amount):
 		var name = "heart" + str(currentHp-1)
 		
 		$pokemonSprite.visible = false
+		
 		yield(get_tree().create_timer(0.25), "timeout")
 		
 		$pokemonSprite.visible = true
@@ -88,6 +107,7 @@ func decrement_health(amount):
 		
 		$heartPanel.get_node(name).texture = texture_heart_empty
 		yield(get_tree().create_timer(0.25), "timeout")
+		
 		currentHp-=1
 		amount-=1
 

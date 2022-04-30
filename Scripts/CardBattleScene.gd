@@ -2,9 +2,8 @@ extends Node
 
 onready var dictionary = load("res://Scripts/DataDictionary.gd").new()
 
-var enemyPokemonName = "Arcanine"
+var enemyPokemonName = "Squirtle"
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	$HUD.display_enemy_card(enemyPokemonName)
 	$HUD.switch_own_pokemon("Charmander")
@@ -15,11 +14,11 @@ func _ready():
 
 func _change_card(position):
 	if position == 1:
-		$HUD.switch_own_pokemon("Poliwag")
-	elif position == 2:
-		$HUD.switch_own_pokemon("Vulpix")
-	else:
 		$HUD.switch_own_pokemon("Jigglypuff")
+	elif position == 2:
+		$HUD.switch_own_pokemon("Bulbasaur")
+	else:
+		$HUD.switch_own_pokemon("Charmander")
 		
 func _move_card_pressed(moveName):
 	$HUD.reset_label()
@@ -31,35 +30,38 @@ func _move_card_pressed(moveName):
 	$HUD.display_text("You choose: " + ownMove.badge)
 	$HUD.display_text("Enemy chose: " + enemyMove.badge)
 	
-	$HUD.enemyPokemon.consume_affinity(enemyMove.cost)
+	if enemyMove.cost <= $HUD.enemyPokemon.currentAffinity:
+		$HUD.enemyPokemon.consume_affinity(enemyMove.cost)
 	
 	if "recover" in enemyMove:
 		$HUD.enemyPokemon.recover_affinity(enemyMove.recover)
-	print(ownMove)
+	
 	if "recover" in ownMove:
-		print("recovering")
+		
 		$HUD.ownPokemon.recover_affinity(ownMove.recover)
 	
-	$HUD.ownPokemon.consume_affinity(ownMove.cost)
+	if ownMove.cost <= $HUD.ownPokemon.currentAffinity:
+		$HUD.ownPokemon.consume_affinity(ownMove.cost)
 	
 	if (result == "Win"):
 		$HUD.display_text("You go first!");
 		
 		$HUD.enemyPokemon.damage(ownMove.damage)
-		$HUD.display_text("Enemy " + str(ownMove.damage) + " damage");
-		yield(get_tree().create_timer(2.0), "timeout")
+		$HUD.display_text("Enemy took " + str(ownMove.damage) + " damage");
+		yield(get_tree().create_timer(1.0), "timeout")
 		$HUD.display_text("You took " + str(enemyMove.damage) + " damage");
 		$HUD.ownPokemon.damage(enemyMove.damage)
 	elif (result == "Lost"):
 		$HUD.display_text("Enemy goes first!");
 		$HUD.display_text("You took " + str(enemyMove.damage) + " damage");
 		$HUD.ownPokemon.damage(enemyMove.damage)
-		yield(get_tree().create_timer(2.0), "timeout")
-		$HUD.display_text("Enemy " +  str(ownMove.damage) + " damage");
+		yield(get_tree().create_timer(1.0), "timeout")
+		$HUD.display_text("Enemy took " +  str(ownMove.damage) + " damage");
 		$HUD.enemyPokemon.damage(ownMove.damage)
 	else:
 		$HUD.display_text("It was a tie!");
-		$HUD.display_text("No damage is dealt!");
+		yield(get_tree().create_timer(1.0), "timeout")
+		$HUD.display_text("No damage was dealt!");
 
 func random_move():
 	var rng = RandomNumberGenerator.new()
@@ -68,7 +70,6 @@ func random_move():
 	var movesList = dictionary.pokemon.get(enemyPokemonName).Moves
 	var randomNumber = rng.randi_range(0, len(movesList)-1)
 	
-	print(movesList[randomNumber])
 	return movesList[randomNumber]
 	
 
