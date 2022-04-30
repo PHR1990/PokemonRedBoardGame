@@ -1,5 +1,5 @@
 # PokemonRedBoardGame
-Godot POC
-![Alt Text](https://imgur.com/a/mcFiUem)
+
+![Alt Text](https://i.imgur.com/7dOyVhl.gif)
 
 
