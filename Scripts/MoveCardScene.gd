@@ -19,3 +19,14 @@ func _ready():
 
 func _on_Button_pressed():
 	emit_signal("card_used", moveName)
+	print("Pressed")
+
+
+func _on_Button_mouse_exited():
+	self.set_scale(Vector2(1,1))
+	self.set_z_index(0)
+
+
+func _on_Button_mouse_entered():
+	self.set_scale(Vector2(1.25,1.25))
+	self.set_z_index(1)
