@@ -33,7 +33,9 @@ var secondMoveElementRef
 var thirdMoveElementRef
 var fourthMoveElementRef
 
-var actionCards : Array
+var moveCardsArray : Array
+
+var actionCardsArray : Array
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -57,14 +59,9 @@ func clean_up_own_pokemon_data():
 	if is_instance_valid(ownPokemon):
 		ownPokemon.queue_free()
 	
-	if is_instance_valid(firstMoveElementRef):
-		firstMoveElementRef.queue_free()
-	if is_instance_valid(secondMoveElementRef):
-		secondMoveElementRef.queue_free()
-	if is_instance_valid(thirdMoveElementRef):
-		thirdMoveElementRef.queue_free()
-	if is_instance_valid(fourthMoveElementRef):
-		fourthMoveElementRef.queue_free()
+	for x in range(0, moveCardsArray.size()):
+		if is_instance_valid(moveCardsArray[x]):
+			moveCardsArray[x].queue_free()
 	
 func switch_own_pokemon(pokemonName): 
 	clean_up_own_pokemon_data()
@@ -89,13 +86,13 @@ func create_pokemon_card(pokemonCardScene, position, pokemonName):
 func display_move_card(position, moveName):
 	match position:
 		0: 
-			firstMoveElementRef = create_move_card(moveCardScene, moveName, dictionary.moves.get(moveName), moveCardAtPositionOne)
+			create_move_card(moveCardScene, moveName, dictionary.moves.get(moveName), moveCardAtPositionOne)
 		1:
-			secondMoveElementRef = create_move_card(moveCardScene,moveName, dictionary.moves.get(moveName), moveCardAtPositionTwo)
+			create_move_card(moveCardScene,moveName, dictionary.moves.get(moveName), moveCardAtPositionTwo)
 		2:
-			thirdMoveElementRef = create_move_card(moveCardScene,moveName, dictionary.moves.get(moveName), moveCardAtPositionThree)
+			create_move_card(moveCardScene,moveName, dictionary.moves.get(moveName), moveCardAtPositionThree)
 		3:
-			fourthMoveElementRef = create_move_card(moveCardScene,moveName, dictionary.moves.get(moveName), moveCardAtPositionFour)
+			create_move_card(moveCardScene,moveName, dictionary.moves.get(moveName), moveCardAtPositionFour)
 
 func display_action(actionName):
 	display_action_at_position(actionName, 1)
@@ -113,7 +110,7 @@ func display_action_at_position(actionName, position):
 	newActionCardScene.position = targetPosition
 	add_child(newActionCardScene)
 	apply_effect_fall_into_board(newActionCardScene)
-	actionCards.append(newActionCardScene)
+	actionCardsArray.append(newActionCardScene)
 	
 func apply_effect_fall_into_board(card):
 	var highestSize = 4
@@ -140,7 +137,7 @@ func create_move_card(moveCardScene, moveName, move, position):
 	move_instance.set_position(position)
 	move_instance.connect("card_used", self, "_on_MoveCardScene_card_used")
 	add_child(move_instance)
-	return move_instance
+	moveCardsArray.append(move_instance)
 	
 func _on_MoveCardScene_card_used(moveName):
 	emit_signal("move_card_was_pressed", moveName)
@@ -155,9 +152,9 @@ func _button_three_pressed():
 	emit_signal("change_pokemon_card_pressed", 3)
 
 func reset_action_cards():
-	for x in range(0, actionCards.size()):
-		if is_instance_valid(actionCards[x]):
-			actionCards[x].queue_free()
+	for x in range(0, actionCardsArray.size()):
+		if is_instance_valid(actionCardsArray[x]):
+			actionCardsArray[x].queue_free()
 	
 
 #func display_text(text):
