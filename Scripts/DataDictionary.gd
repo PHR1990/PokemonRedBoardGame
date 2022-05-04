@@ -2,51 +2,61 @@ extends Node
 
 export(Dictionary) var pokemon = {
 	Bulbasaur = {
+		Name = "Bulbasaur",
 		HP = 4,
 		Affinity = 3,
 		Type = "Grass",
 		Moves = ["Tackle", "Growl", "RazorLeaf"]
 	}, Charmander = {
+		Name = "Charmander",
 		HP = 4,
 		Affinity = 3,
 		Type = "Fire",
 		Moves = ["Scratch", "Growl", "Ember", "FlameWheel"]
 	}, Squirtle = {
+		Name = "Squirtle",
 		HP = 4,
 		Affinity = 3,
 		Type = "Water",
 		Moves = ["Tackle", "Growl", "Bubble", "WaterGun"]
 	}, Pikachu = {
+		Name = "Pikachu",
 		HP = 3,
 		Affinity = 4,
 		Type = "Electric",
 		Moves = ["Nuzzle", "Growl"]
 	}, Poliwag = {
+		Name = "Poliwag",
 		HP = 3,
 		Affinity = 2,
 		Type = "Water",
 		Moves = ["Tackle", "Growl", "Bubble"]
 	}, Vulpix = {
+		Name = "Vulpix",
 		HP = 3,
 		Affinity = 4,
 		Type = "Fire",
 		Moves = ["Scratch", "Growl", "Ember"]
 	}, Jigglypuff = {
+		Name = "Jigglypuff",
 		HP = 4,
 		Affinity = 2,
 		Type = "Normal",
 		Moves = ["Nuzzle", "Ember", "Bubble", "Tackle"]
 	}, Arcanine = {
+		Name = "Arcanine",
 		HP = 8,
 		Affinity = 6,
 		Type = "Fire",
 		Moves = ["FlameWheel", "Ember", "Tackle"]
 	}, Charizard = {
+		Name = "Charizard",
 		HP = 7,
 		Affinity = 7,
 		Type = "Fire",
 		Moves = ["FlameWheel", "Ember", "Slash"]
 	}, Fearow = {
+		Name = "Fearow",
 		HP = 6,
 		Affinity = 5,
 		Type = "Normal",
@@ -124,3 +134,5 @@ export(Dictionary) var moves = {
 		type = "Normal"
 	}
 }
+
+

@@ -19,7 +19,7 @@ func _ready():
 
 func _on_Button_pressed():
 	emit_signal("card_used", moveName)
-	print("Pressed")
+	
 
 
 func _on_Button_mouse_exited():

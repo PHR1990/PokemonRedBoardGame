@@ -14,6 +14,13 @@ config/name="PokemonBoardGame"
 run/main_scene="res://Scenes/CardBattleScene.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+Repository="*res://Scripts/Repository.gd"
+Pokemon="*res://Scripts/Types/Pokemon.gd"
+Enums="*res://Scripts/Types/Enums.gd"
+Move="*res://Scripts/Types/Move.gd"
+
 [display]
 
 window/stretch/aspect="keep"

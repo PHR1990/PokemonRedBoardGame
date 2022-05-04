@@ -48,10 +48,18 @@ func _ready():
 	$canvasLayer.get_node("buttonThree").connect("pressed", self, "_button_three_pressed")
 	$canvasLayer.get_node("buttonThree").set_tooltip("Charmander")
 
+func set_tooltip_pokemon_switch_button(buttonIndex, pokemonName):
+	match(buttonIndex):
+		0: 
+			$canvasLayer.get_node("buttonOne").set_tooltip(pokemonName)
+		1:
+			$canvasLayer.get_node("buttonTwo").set_tooltip(pokemonName)
+		2:
+			$canvasLayer.get_node("buttonThree").set_tooltip(pokemonName)
 	
-func display_own_pokemon_card(pokemonName):
-	ownPokemon = create_pokemon_card(pokemonCardScene, ownPokemonCardPosition , pokemonName)
-
+func display_own_pokemon_card_by_data(pokemonData):
+	ownPokemon = create_pokemon_card_by_data(pokemonCardScene, ownPokemonCardPosition, pokemonData)
+	
 func display_enemy_card(pokemonName):
 	enemyPokemon = create_pokemon_card(pokemonCardScene, enemyPokemonCardPosition, pokemonName)
 
@@ -63,13 +71,28 @@ func clean_up_own_pokemon_data():
 		if is_instance_valid(moveCardsArray[x]):
 			moveCardsArray[x].queue_free()
 	
-func switch_own_pokemon(pokemonName): 
+func switch_own_pokemon_by_data(pokemonData): 
 	clean_up_own_pokemon_data()
-	display_own_pokemon_card(pokemonName)
-	var moves = dictionary.pokemon.get(pokemonName).Moves
+	display_own_pokemon_card_by_data(pokemonData)
+	var moves = dictionary.pokemon.get(pokemonData.pokemon.Name).Moves
 	
 	for x in range(0, len(moves)):
 		display_move_card(x, moves[x])
+
+func create_pokemon_card_by_data(pokemonCardScene, position, pokemonData):
+	
+	var pokemonInstance = pokemonCardScene.instance()
+	
+	pokemonInstance.hp = pokemonData.pokemon.HP
+	
+	pokemonInstance.currentHp = pokemonData.currentHp
+	pokemonInstance.pokemonName = pokemonData.pokemon.Name
+	pokemonInstance.type = pokemonData.pokemon.Type
+	pokemonInstance.affinity = pokemonData.pokemon.Affinity
+	pokemonInstance.set_position(position)
+	
+	add_child(pokemonInstance)
+	return pokemonInstance
 
 func create_pokemon_card(pokemonCardScene, position, pokemonName):
 	
@@ -143,13 +166,13 @@ func _on_MoveCardScene_card_used(moveName):
 	emit_signal("move_card_was_pressed", moveName)
 	
 func _button_one_pressed():
-	emit_signal("change_pokemon_card_pressed", 1)
+	emit_signal("change_pokemon_card_pressed", 0)
 	
 func _button_two_pressed():
-	emit_signal("change_pokemon_card_pressed", 2)
+	emit_signal("change_pokemon_card_pressed", 1)
 	
 func _button_three_pressed():
-	emit_signal("change_pokemon_card_pressed", 3)
+	emit_signal("change_pokemon_card_pressed", 2)
 
 func reset_action_cards():
 	for x in range(0, actionCardsArray.size()):

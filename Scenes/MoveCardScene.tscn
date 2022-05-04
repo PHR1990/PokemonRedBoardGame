@@ -3,7 +3,7 @@
 [ext_resource path="res://Assets/Badges/Paper.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Types/Electric.png" type="Texture" id=2]
 [ext_resource path="res://Assets/CardTemplates/MoveCardV4.png" type="Texture" id=3]
-[ext_resource path="res://Scripts/MoveCardScene.gd" type="Script" id=4]
+[ext_resource path="res://Scripts/GlobalScenes/CardBattleScene/SupportScenes/MoveCardScene.gd" type="Script" id=4]
 [ext_resource path="res://Assets/Fonts/fffForwardFont-pixelArt.tres" type="DynamicFont" id=6]
 
 [node name="MoveCardScene" type="Node2D"]

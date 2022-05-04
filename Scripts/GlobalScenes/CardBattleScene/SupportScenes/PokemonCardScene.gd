@@ -1,10 +1,10 @@
 extends Node2D
 
 export var hp : int = 4
-var currentHp : int = 4
+export var currentHp : int = -1
 
 export var affinity : int = 3
-var currentAffinity : int = 3
+export var currentAffinity : int = 3
 
 export var pokemonName = "Squirtle"
 export var type = "Water"
@@ -14,7 +14,9 @@ onready var texture_heart_empty = load("res://Assets/heartEmpty.png")
 onready var texture_affinity = $affinityPanel.get_node("affinity")
 
 func _ready():
-	currentHp = hp
+	if currentHp < 0:
+		currentHp = hp
+	#currentHp = hp
 	currentAffinity = affinity
 	$pokemonSprite.texture = load("res://Assets/Pokemon/" + pokemonName + ".png")
 
@@ -82,6 +84,10 @@ func create_hearts():
 		instance.visible = true
 		$heartPanel.add_child(instance)
 		instance.rect_min_size = Vector2(25.0 * pixelMult,10.0 * pixelMult)
+	
+	for x in range(currentHp, hp):
+		var name = "heart" + str(x)
+		$heartPanel.get_node(name).texture = texture_heart_empty
 
 func damage(amount):
 	if amount > 0:
