@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/ActionCard.png-500322b5666023a209f3f4000dbdf4d5.stex"
+path="res://.import/background v3.png-74ddec559eda2af73df8fd9d2fd2aa63.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/CardTemplates/ActionCard.png"
-dest_files=[ "res://.import/ActionCard.png-500322b5666023a209f3f4000dbdf4d5.stex" ]
+source_file="res://Assets/CardTemplates/background v3.png"
+dest_files=[ "res://.import/background v3.png-74ddec559eda2af73df8fd9d2fd2aa63.stex" ]
 
 [params]
 

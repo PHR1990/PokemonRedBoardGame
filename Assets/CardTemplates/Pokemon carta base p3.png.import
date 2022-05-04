@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/ActionCard.png-500322b5666023a209f3f4000dbdf4d5.stex"
+path="res://.import/Pokemon carta base p3.png-bb4dacddd6f8151536a1f213820bf969.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/CardTemplates/ActionCard.png"
-dest_files=[ "res://.import/ActionCard.png-500322b5666023a209f3f4000dbdf4d5.stex" ]
+source_file="res://Assets/CardTemplates/Pokemon carta base p3.png"
+dest_files=[ "res://.import/Pokemon carta base p3.png-bb4dacddd6f8151536a1f213820bf969.stex" ]
 
 [params]
 
