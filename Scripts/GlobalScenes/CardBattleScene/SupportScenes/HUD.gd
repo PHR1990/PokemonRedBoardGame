@@ -12,9 +12,9 @@ onready var currentSize = get_viewport().size
 onready var enemyPokemonCardPosition = Vector2(currentSize.x / 2 - 160, 25)
 onready var ownPokemonCardPosition = Vector2(currentSize.x / 2 -160, 270)
 
-onready var moveCardScene = load("res://Scenes/MoveCardScene.tscn")
-onready var pokemonCardScene = load("res://Scenes/PokemonCardScene.tscn")
-onready var actionCardScene = load("res://Scenes/ActionCardScene.tscn")
+onready var moveCardScene = load("res://Scenes/CardBattleScene/MoveCardScene.tscn")
+onready var pokemonCardScene = load("res://Scenes/CardBattleScene/PokemonCardScene.tscn")
+onready var actionCardScene = load("res://Scenes/CardBattleScene/ActionCardScene.tscn")
 
 onready var moveCardAtPositionOne = Vector2(220, 470)
 onready var moveCardAtPositionTwo = moveCardAtPositionOne + Vector2(100,0)
@@ -47,6 +47,8 @@ func _ready():
 	$canvasLayer.get_node("buttonTwo").set_tooltip("Pikachu")
 	$canvasLayer.get_node("buttonThree").connect("pressed", self, "_button_three_pressed")
 	$canvasLayer.get_node("buttonThree").set_tooltip("Charmander")
+	
+	
 
 func set_tooltip_pokemon_switch_button(buttonIndex, pokemonName):
 	match(buttonIndex):
@@ -60,8 +62,9 @@ func set_tooltip_pokemon_switch_button(buttonIndex, pokemonName):
 func display_own_pokemon_card_by_data(pokemonData):
 	ownPokemon = create_pokemon_card_by_data(pokemonCardScene, ownPokemonCardPosition, pokemonData)
 	
-func display_enemy_card(pokemonName):
-	enemyPokemon = create_pokemon_card(pokemonCardScene, enemyPokemonCardPosition, pokemonName)
+func display_enemy_card_by_data(pokemonData):
+	print("Displaying", pokemonData)
+	enemyPokemon = create_pokemon_card_by_data(pokemonCardScene, enemyPokemonCardPosition, pokemonData)
 
 func clean_up_own_pokemon_data():
 	if is_instance_valid(ownPokemon):
@@ -118,13 +121,13 @@ func display_move_card(position, moveName):
 			create_move_card(moveCardScene,moveName, dictionary.moves.get(moveName), moveCardAtPositionFour)
 
 func display_action(actionName):
-	display_action_at_position(actionName, 1)
+	display_action_at_position(actionName, 0)
 
 func display_action_at_position(actionName, position):
 	var targetPosition = actionCardPositionOne
-	if position == 2:
+	if position == 1:
 		targetPosition = actionCardPositionTwo
-	elif position == 3:
+	elif position == 2:
 		targetPosition = actionCardPositionThree
 	
 	var newActionCardScene = actionCardScene.instance()
@@ -178,10 +181,3 @@ func reset_action_cards():
 	for x in range(0, actionCardsArray.size()):
 		if is_instance_valid(actionCardsArray[x]):
 			actionCardsArray[x].queue_free()
-	
-
-#func display_text(text):
-	#display_action(text)
-
-func enqueue_message(text):
-	pass

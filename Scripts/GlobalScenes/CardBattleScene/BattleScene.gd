@@ -2,9 +2,9 @@ extends Node
 
 onready var dictionary = load("res://Scripts/DataDictionary.gd").new()
 
-var enemyPokemonName = "Squirtle"
-
 onready var battleData = {
+	ownTeamCurrentIndex = 0,
+	enemyTeamCurrentIndex = 0,
 	ownTeam = [{
 		pokemon = Repository.get_pokemon("Pikachu"),
 		currentHp = Repository.get_pokemon("Pikachu").HP
@@ -18,20 +18,35 @@ onready var battleData = {
 		currentHp = Repository.get_pokemon("Charmander").HP
 	}
 	],
-	enemyTeam = []
+	enemyTeam = [{
+			pokemon = Repository.get_pokemon("Poliwag"),
+			currentHp = Repository.get_pokemon("Poliwag").HP
+		},
+		{
+			pokemon = Repository.get_pokemon("Bulbasaur"),
+			currentHp = Repository.get_pokemon("Bulbasaur").HP
+		},
+		{
+			pokemon = Repository.get_pokemon("Fearow"),
+			currentHp = Repository.get_pokemon("Fearow").HP
+		},
+	]
 }
 
-var currentlyChosenPokemonIndex = 0;
-
-func damage_own_pokemon(position, damage):
-	battleData.ownTeam[position].currentHp-= damage
+func damage_own_pokemon(damage):
+	battleData.ownTeam[battleData.ownTeamCurrentIndex].currentHp-= damage
+	$HUD.ownPokemon.damage(damage)
+	
+func damage_enemy_pokemon(damage):
+	battleData.enemyTeam[battleData.enemyTeamCurrentIndex].currentHp-= damage
+	$HUD.enemyPokemon.damage(damage)
 
 func get_own_pokemon_name(position) -> Pokemon:
 	return battleData.ownTeam[position]
 
 func _ready():
 	
-	$HUD.display_enemy_card(enemyPokemonName)
+	$HUD.display_enemy_card_by_data(battleData.enemyTeam[0])
 	$HUD.switch_own_pokemon_by_data(get_own_pokemon_name(0))
 	
 	$HUD.connect("change_pokemon_card_pressed", self, "_change_card")
@@ -42,7 +57,7 @@ func _ready():
 	$HUD.set_tooltip_pokemon_switch_button(2, get_own_pokemon_name(2).pokemon.Name)
 
 func _change_card(position):
-	currentlyChosenPokemonIndex = position
+	battleData.ownTeamCurrentIndex = position
 	if position == 0:
 		$HUD.switch_own_pokemon_by_data(get_own_pokemon_name(position))
 	elif position == 1:
@@ -59,9 +74,9 @@ func _move_card_pressed(moveName):
 	
 	var result = rock_paper_scissor_result(ownMove.badge, enemyMove.badge)
 	
-	$HUD.display_action_at_position("You chose \n" + ownMove.badge, 1)
+	$HUD.display_action_at_position("You chose \n" + ownMove.badge, 0)
 	yield(get_tree().create_timer(0.5), "timeout")
-	$HUD.display_action_at_position("Enemy chose \n" + enemyMove.badge, 2)
+	$HUD.display_action_at_position("Enemy chose \n" + enemyMove.badge, 1)
 	
 	if enemyMove.cost <= $HUD.enemyPokemon.currentAffinity:
 		$HUD.enemyPokemon.consume_affinity(enemyMove.cost)
@@ -80,31 +95,31 @@ func _move_card_pressed(moveName):
 	$HUD.reset_action_cards()
 	
 	if (result == "Win"):
-		#$HUD.display_text("You go first!");
-		$HUD.enemyPokemon.damage(ownMove.damage)
-		$HUD.display_action_at_position("Enemy took \n" + str(ownMove.damage) + " damage", 1);
+		damage_enemy_pokemon(ownMove.damage)
+		$HUD.display_action_at_position("Enemy took \n" + str(ownMove.damage) + " damage", 0);
 		yield(get_tree().create_timer(1.0), "timeout")
-		$HUD.display_action_at_position("You took \n" + str(enemyMove.damage) + " damage", 2);
-		$HUD.ownPokemon.damage(enemyMove.damage)
-		damage_own_pokemon(currentlyChosenPokemonIndex, enemyMove.damage)
-	elif (result == "Lost"):
-		#$HUD.display_text("Enemy goes first!");
 		$HUD.display_action_at_position("You took \n" + str(enemyMove.damage) + " damage", 1);
-		$HUD.ownPokemon.damage(enemyMove.damage)
-		damage_own_pokemon(currentlyChosenPokemonIndex, enemyMove.damage)
+		damage_own_pokemon(enemyMove.damage)
+	elif (result == "Lost"):
+		$HUD.display_action_at_position("You took \n" + str(enemyMove.damage) + " damage", 0);
+		damage_own_pokemon(enemyMove.damage)
 		yield(get_tree().create_timer(1.0), "timeout")
-		$HUD.display_action_at_position("Enemy took \n" +  str(ownMove.damage) + " damage", 2);
-		$HUD.enemyPokemon.damage(ownMove.damage)
+		$HUD.display_action_at_position("Enemy took \n" +  str(ownMove.damage) + " damage", 1);
+		damage_enemy_pokemon(ownMove.damage)
 	else:
-		$HUD.display_action_at_position("It was a tie!", 1);
-		yield(get_tree().create_timer(1.0), "timeout")
-		$HUD.display_action_at_position("No damage\n was dealt!", 2);
+		#$HUD.display_action_at_position("It was a tie!", 0);
+		#yield(get_tree().create_timer(1.0), "timeout")
+		$HUD.display_action_at_position("No damage\n was dealt!", 1);
+	
+	if battleData.enemyTeam[battleData.enemyTeamCurrentIndex].currentHp < 1:
+		battleData.enemyTeamCurrentIndex+=1
+		$HUD.display_enemy_card_by_data(battleData.enemyTeam[battleData.enemyTeamCurrentIndex])
 
 func random_move():
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
 	
-	var movesList = dictionary.pokemon.get(enemyPokemonName).Moves
+	var movesList = battleData.enemyTeam[0].pokemon.Moves
 	var randomNumber = rng.randi_range(0, len(movesList)-1)
 	
 	return movesList[randomNumber]

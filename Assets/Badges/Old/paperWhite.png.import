@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/paperWhite.png-760d4e3ea0f44b26a8588c833540ce7d.stex"
+path="res://.import/paperWhite.png-d95b74a90afc2070d836591a050d2d8c.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Badges/paperWhite.png"
-dest_files=[ "res://.import/paperWhite.png-760d4e3ea0f44b26a8588c833540ce7d.stex" ]
+source_file="res://Assets/Badges/Old/paperWhite.png"
+dest_files=[ "res://.import/paperWhite.png-d95b74a90afc2070d836591a050d2d8c.stex" ]
 
 [params]
 

@@ -11,7 +11,7 @@ config_version=4
 [application]
 
 config/name="PokemonBoardGame"
-run/main_scene="res://Scenes/CardBattleScene.tscn"
+run/main_scene="res://Scenes/CardBattleScene/CardBattleScene.tscn"
 config/icon="res://icon.png"
 
 [autoload]
@@ -20,6 +20,7 @@ Repository="*res://Scripts/Repository.gd"
 Pokemon="*res://Scripts/Types/Pokemon.gd"
 Enums="*res://Scripts/Types/Enums.gd"
 Move="*res://Scripts/Types/Move.gd"
+ColorChanger="*res://Scripts/ColorChanger.gd"
 
 [display]
 

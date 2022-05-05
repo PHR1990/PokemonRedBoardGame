@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/background V3.png-1e3d45f9892b7794d6de398413e3da4f.stex"
+path="res://.import/Scissor.png-88138bc4f375e252582bb941cd1efbb0.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/CardTemplates/background V3.png"
-dest_files=[ "res://.import/background V3.png-1e3d45f9892b7794d6de398413e3da4f.stex" ]
+source_file="res://Assets/Badges/Old/Scissor.png"
+dest_files=[ "res://.import/Scissor.png-88138bc4f375e252582bb941cd1efbb0.stex" ]
 
 [params]
 

@@ -14,6 +14,7 @@ func _ready():
 	$damageLabel.text = str(damageAmount)
 	$affinityCostLabel.text = str(affinityCostAmount)
 	$type.texture = load("res://Assets/Types/" + type + ".png")
+	print(badge)
 	$badge.texture = load("res://Assets/Badges/" + badge + ".png")
 	
 

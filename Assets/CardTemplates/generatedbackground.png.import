@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/background V3.png-1e3d45f9892b7794d6de398413e3da4f.stex"
+path="res://.import/generatedbackground.png-d1e27bb83a6cdfda6615f92061b0c9e9.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/CardTemplates/background V3.png"
-dest_files=[ "res://.import/background V3.png-1e3d45f9892b7794d6de398413e3da4f.stex" ]
+source_file="res://Assets/CardTemplates/generatedbackground.png"
+dest_files=[ "res://.import/generatedbackground.png-d1e27bb83a6cdfda6615f92061b0c9e9.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=false
+flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2

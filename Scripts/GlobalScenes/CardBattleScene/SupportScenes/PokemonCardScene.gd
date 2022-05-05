@@ -95,7 +95,7 @@ func damage(amount):
 
 func decrement_health(amount):
 	
-	while amount > 0:
+	while amount > 0 && currentHp > 0:
 		var name = "heart" + str(currentHp-1)
 		
 		$pokemonSprite.visible = false
@@ -116,4 +116,7 @@ func decrement_health(amount):
 		
 		currentHp-=1
 		amount-=1
+	
+	if currentHp < 1:
+		$pokemonSprite.visible = false
 
