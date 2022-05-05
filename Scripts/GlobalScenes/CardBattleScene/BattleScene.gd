@@ -112,8 +112,28 @@ func _move_card_pressed(moveName):
 		$HUD.display_action_at_position("No damage\n was dealt!", 1);
 	
 	if battleData.enemyTeam[battleData.enemyTeamCurrentIndex].currentHp < 1:
-		battleData.enemyTeamCurrentIndex+=1
+		
+		match battleData.enemyTeamCurrentIndex:
+			0:
+				battleData.enemyTeamCurrentIndex = 1
+			1:
+				battleData.enemyTeamCurrentIndex = 2
+			2: 
+				## No more
+				pass
 		$HUD.display_enemy_card_by_data(battleData.enemyTeam[battleData.enemyTeamCurrentIndex])
+	
+	if battleData.ownTeam[battleData.ownTeamCurrentIndex].currentHp < 1:
+		match battleData.ownTeamCurrentIndex:
+			0:
+				battleData.ownTeamCurrentIndex = 1
+			1:
+				battleData.ownTeamCurrentIndex = 2
+			2:
+				battleData.ownTeamCurrentIndex = 0
+				# in reality need to check if each are alive since player may have changed
+		
+		$HUD.display_own_pokemon_card_by_data(battleData.ownTeam[battleData.ownTeamCurrentIndex])
 
 func random_move():
 	var rng = RandomNumberGenerator.new()

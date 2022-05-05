@@ -144,9 +144,11 @@ func apply_effect_fall_into_board(card):
 	while currentScale > Vector2(1,1):
 		yield(get_tree().create_timer(0.01), "timeout")
 		currentScale -= Vector2(0.25,0.25)
-		card.scale = currentScale
+		if is_instance_valid(card):
+			card.scale = currentScale
 	
-	card.scale = Vector2(1,1)
+	if is_instance_valid(card):
+		card.scale = Vector2(1,1)
 
 func create_move_card(moveCardScene, moveName, move, position):
 	var instanceName = "Move"
