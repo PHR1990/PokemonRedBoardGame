@@ -18,13 +18,13 @@ func change_color(fileName):
 			mat[imageFile.get_pixel(row, col)] = "color"
 	
 	var newColors = [
-		Color.aliceblue, 
-		Color.antiquewhite, 
+		Color.gray, 
+		Color.gray, 
 		Color.aqua, 
-		Color.azure, 
-		Color.beige, 
-		Color.blanchedalmond, 
-		Color.bisque
+		Color.aqua, 
+		Color.gray, 
+		Color.green,
+		Color.pink
 		]
 	var counter = 0;
 	

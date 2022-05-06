@@ -21,6 +21,7 @@ Pokemon="*res://Scripts/Types/Pokemon.gd"
 Enums="*res://Scripts/Types/Enums.gd"
 Move="*res://Scripts/Types/Move.gd"
 ColorChanger="*res://Scripts/ColorChanger.gd"
+AnimationLocks="*res://Scripts/AnimationLocks.gd"
 
 [display]
 

@@ -45,7 +45,7 @@ func get_own_pokemon_name(position) -> Pokemon:
 	return battleData.ownTeam[position]
 
 func _ready():
-	
+	ColorChanger.change_color("res://Assets/CardTemplates/Pokemon carta base.png")
 	$HUD.display_enemy_card_by_data(battleData.enemyTeam[0])
 	$HUD.switch_own_pokemon_by_data(get_own_pokemon_name(0))
 	
@@ -57,6 +57,9 @@ func _ready():
 	$HUD.set_tooltip_pokemon_switch_button(2, get_own_pokemon_name(2).pokemon.Name)
 
 func _change_card(position):
+	if (AnimationLocks.is_playing_animation()):
+		return
+	
 	battleData.ownTeamCurrentIndex = position
 	if position == 0:
 		$HUD.switch_own_pokemon_by_data(get_own_pokemon_name(position))
@@ -68,6 +71,9 @@ func _change_card(position):
 	$HUD.display_action("Player \n\n Changed\n pokemon")
 		
 func _move_card_pressed(moveName):
+	if (AnimationLocks.is_playing_animation()):
+		return
+	AnimationLocks.enqueue_animation()
 	$HUD.reset_action_cards()
 	var ownMove = dictionary.moves.get(moveName)
 	var enemyMove = dictionary.moves.get(random_move())
@@ -107,8 +113,6 @@ func _move_card_pressed(moveName):
 		$HUD.display_action_at_position("Enemy took \n" +  str(ownMove.damage) + " damage", 1);
 		damage_enemy_pokemon(ownMove.damage)
 	else:
-		#$HUD.display_action_at_position("It was a tie!", 0);
-		#yield(get_tree().create_timer(1.0), "timeout")
 		$HUD.display_action_at_position("No damage\n was dealt!", 1);
 	
 	if battleData.enemyTeam[battleData.enemyTeamCurrentIndex].currentHp < 1:
@@ -122,14 +126,19 @@ func _move_card_pressed(moveName):
 				## No more
 				pass
 		$HUD.display_enemy_card_by_data(battleData.enemyTeam[battleData.enemyTeamCurrentIndex])
+	AnimationLocks.dequeue_animation()
+	AnimationLocks.wait_all_animations()
 	
 	if battleData.ownTeam[battleData.ownTeamCurrentIndex].currentHp < 1:
 		match battleData.ownTeamCurrentIndex:
 			0:
+				$HUD.disable_button(0)
 				battleData.ownTeamCurrentIndex = 1
 			1:
+				$HUD.disable_button(1)
 				battleData.ownTeamCurrentIndex = 2
 			2:
+				$HUD.disable_button(2)
 				battleData.ownTeamCurrentIndex = 0
 				# in reality need to check if each are alive since player may have changed
 		

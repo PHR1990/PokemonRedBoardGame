@@ -49,6 +49,15 @@ func _ready():
 	$canvasLayer.get_node("buttonThree").set_tooltip("Charmander")
 	
 	
+func disable_button(buttonIndex):
+	match(buttonIndex):
+		0: 
+			$canvasLayer.get_node("buttonOne").set_disabled(true)
+		1:
+			$canvasLayer.get_node("buttonTwo").set_disabled(true)
+		2:
+			$canvasLayer.get_node("buttonThree").set_disabled(true)
+	
 
 func set_tooltip_pokemon_switch_button(buttonIndex, pokemonName):
 	match(buttonIndex):

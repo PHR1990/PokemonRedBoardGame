@@ -94,7 +94,7 @@ func damage(amount):
 		decrement_health(amount)
 
 func decrement_health(amount):
-	
+	AnimationLocks.enqueue_animation()
 	while amount > 0 && currentHp > 0:
 		var name = "heart" + str(currentHp-1)
 		
@@ -119,4 +119,7 @@ func decrement_health(amount):
 	
 	if currentHp < 1:
 		$pokemonSprite.visible = false
+		yield(get_tree().create_timer(1), "timeout")
+	AnimationLocks.dequeue_animation()
+	
 
